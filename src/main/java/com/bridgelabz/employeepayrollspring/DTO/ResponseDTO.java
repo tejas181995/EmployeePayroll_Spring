@@ -9,4 +9,5 @@ public class ResponseDTO {
 		this.data = data;
 		this.message = message;
 	}
+	
 }

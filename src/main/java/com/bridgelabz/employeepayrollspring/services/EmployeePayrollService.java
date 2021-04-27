@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.employeepayrollspring.DTO.EmployeeDTO;
+import com.bridgelabz.employeepayrollspring.exception.EmployeepayrollException;
 import com.bridgelabz.employeepayrollspring.model.Employee;
 import com.bridgelabz.employeepayrollspring.repositary.IEmployeePayrollRepo;
 
@@ -14,7 +15,7 @@ public class EmployeePayrollService implements IEmployeePayrollServices {
 
 	@Autowired
 	private IEmployeePayrollRepo employeePayrollRepo;
-	
+
 	@Override
 	public List<Employee> getEmployees() {
 		return employeePayrollRepo.findAll();
@@ -26,4 +27,14 @@ public class EmployeePayrollService implements IEmployeePayrollServices {
 		return this.employeePayrollRepo.save(newEmp);
 	}
 
+    @Override
+    public Employee getEmployeeById(int employeeId) {
+        return this.employeePayrollRepo.findById(employeeId)
+                .orElseThrow(() ->
+                        new EmployeepayrollException(
+                                EmployeepayrollException.exceptionType.EMPLOYEE_NOT_FOUND,
+                                "Employee is not exist")
+                );
+    }
+	
 }

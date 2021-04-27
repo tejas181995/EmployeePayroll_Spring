@@ -9,6 +9,6 @@ import com.bridgelabz.employeepayrollspring.model.Employee;
 public interface IEmployeePayrollServices {
 	
 	public List<Employee> getEmployees();
-	
 	public Employee addEmployee(EmployeeDTO employee);
+	public Employee getEmployeeById(int employeeId);
 }
