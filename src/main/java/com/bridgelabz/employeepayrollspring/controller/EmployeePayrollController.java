@@ -31,14 +31,11 @@ public class EmployeePayrollController {
 	private IEmployeePayrollServices employeePayrollService;
 	
 	@PostMapping
-	public ResponseEntity<ResponseDTO> addEmployee(@Valid @RequestBody EmployeeDTO employee, BindingResult bindingResult){
-		if(bindingResult.hasErrors()) {
-			List<String> collect = bindingResult.getAllErrors().stream().map(error -> error.getDefaultMessage()).collect(Collectors.toList());
-			return new ResponseEntity<ResponseDTO>(new ResponseDTO(collect, "validation error"), HttpStatus.BAD_REQUEST);
-		}
+	public ResponseEntity<ResponseDTO> addEmployee(@Valid @RequestBody EmployeeDTO employee){
 		Employee emp = employeePayrollService.addEmployee(employee);
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO(emp, "Employee created successfully"), HttpStatus.CREATED);
 	}
+	
 	@GetMapping("/all")
 	public ResponseEntity<ResponseDTO> getAllEmployee(){
 		return new ResponseEntity<ResponseDTO>(new ResponseDTO(employeePayrollService.getEmployees(), "Employees fetched successfully"), HttpStatus.OK);

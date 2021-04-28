@@ -1,5 +1,8 @@
 package com.bridgelabz.employeepayrollspring.exception;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +21,10 @@ public class EmployeeControllerValidation extends ResponseEntityExceptionHandler
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
                                                                   WebRequest request) {
-        String errorMsg = ex.getBindingResult().getAllErrors().get(0).getDefaultMessage();
+        List<String> errorMsg = ex.getBindingResult().getAllErrors().stream()
+        		.map(error -> error.getDefaultMessage()).collect(Collectors.toList());
         return new ResponseEntity<>(
-                new ResponseDTO(null, errorMsg),
+                new ResponseDTO(errorMsg, "please validate fields"),
                 HttpStatus.BAD_REQUEST);
     }
 }
