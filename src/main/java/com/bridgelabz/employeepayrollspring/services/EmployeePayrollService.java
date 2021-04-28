@@ -36,5 +36,17 @@ public class EmployeePayrollService implements IEmployeePayrollServices {
                                 "Employee is not exist")
                 );
     }
+
+	@Override
+	public Employee updateEmployee(int employeeId, EmployeeDTO employee) {
+		Employee newEmployee = new Employee(employeeId, employee);
+		return this.employeePayrollRepo.save(newEmployee);
+	}
+
+	@Override
+	public void deleteEmployee(int employeeId) {
+		employeePayrollRepo.deleteById(employeeId);
+		
+	}
 	
 }

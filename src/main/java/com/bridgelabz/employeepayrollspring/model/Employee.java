@@ -1,5 +1,7 @@
 package com.bridgelabz.employeepayrollspring.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,10 +9,10 @@ import javax.persistence.Id;
 
 import com.bridgelabz.employeepayrollspring.DTO.EmployeeDTO;
 
-import lombok.Getter;
+import lombok.Data;
 
 @Entity
-@Getter
+@Data
 public class Employee {
 	
 	@Id
@@ -20,6 +22,9 @@ public class Employee {
 	private String name;
 	private String email;
 	private String phone;
+	private String address;
+	private double salary;
+	private Date startDate;
 	
 	public Employee() {}
 	
@@ -30,8 +35,21 @@ public class Employee {
 		this.name = employee.getName();
 		this.email = employee.getEmail();
 		this.phone = employee.getPhone();
+		this.address = employee.getAddress();
+		this.salary = employee.getSalary();
+		this.startDate = employee.getStartDate();
+		
 	}
 
+	public Employee(int id , EmployeeDTO employee) {
+		this.id = id;
+		this.name = employee.getName();
+		this.email = employee.getEmail();
+		this.phone = employee.getPhone();
+		this.address = employee.getAddress();
+		this.salary = employee.getSalary();
+		this.startDate = employee.getStartDate();
+	}
 
 
 	@Override

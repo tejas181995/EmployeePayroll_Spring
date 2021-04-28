@@ -1,7 +1,14 @@
 package com.bridgelabz.employeepayrollspring.DTO;
 
+import java.util.Date;
+
 import javax.validation.constraints.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import lombok.Data;
+
+@Data
 public class EmployeeDTO {
 	
 	@NotEmpty(message = "please enter name")
@@ -14,29 +21,14 @@ public class EmployeeDTO {
 	@Pattern(regexp = "[0-9]{10}", message = "please enter valid phone")
 	private String phone;
 	
+	@NotEmpty(message = "please enter address")
+	private String address;
 	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getPhone() {
-		return phone;
-	}
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-	@Override
-	public String toString() {
-		return "EmployeeDTO [name=" + name + ", email=" + email + ", phone=" + phone + "]";
-	}
+	@NotNull
+	@Min(value = 300000, message = "salary should be more than 3 lac.")
+	private double salary;
 	
+	@JsonFormat(pattern = "yyyy/MM/dd")
+    private Date startDate;
 	
 }

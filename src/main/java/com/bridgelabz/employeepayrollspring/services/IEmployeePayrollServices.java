@@ -11,4 +11,6 @@ public interface IEmployeePayrollServices {
 	public List<Employee> getEmployees();
 	public Employee addEmployee(EmployeeDTO employee);
 	public Employee getEmployeeById(int employeeId);
+	public Employee updateEmployee(int employeeId, EmployeeDTO employee);
+	public void deleteEmployee(int employeeId);
 }
