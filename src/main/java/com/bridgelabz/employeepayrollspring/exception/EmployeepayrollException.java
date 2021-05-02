@@ -1,5 +1,6 @@
 package com.bridgelabz.employeepayrollspring.exception;
 
+@SuppressWarnings("serial")
 public class EmployeepayrollException extends RuntimeException{
 	
 	public final exceptionType type;

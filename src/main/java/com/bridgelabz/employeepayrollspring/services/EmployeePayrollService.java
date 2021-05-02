@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.employeepayrollspring.DTO.EmployeeDTO;
+import com.bridgelabz.employeepayrollspring.DTO.UpdateEmployeeDTO;
 import com.bridgelabz.employeepayrollspring.exception.EmployeepayrollException;
 import com.bridgelabz.employeepayrollspring.model.Employee;
 import com.bridgelabz.employeepayrollspring.repositary.IEmployeePayrollRepo;
@@ -33,20 +34,25 @@ public class EmployeePayrollService implements IEmployeePayrollServices {
                 .orElseThrow(() ->
                         new EmployeepayrollException(
                                 EmployeepayrollException.exceptionType.EMPLOYEE_NOT_FOUND,
-                                "Employee is not exist")
+                                "Employee does not exist")
                 );
     }
 
+	
+
 	@Override
-	public Employee updateEmployee(int employeeId, EmployeeDTO employee) {
-		Employee newEmployee = new Employee(employeeId, employee);
-		return this.employeePayrollRepo.save(newEmployee);
+	public Employee deleteEmployee(int employeeId) {
+		Employee deletedEmployee = getEmployeeById(employeeId);
+		employeePayrollRepo.deleteById(employeeId);
+		return deletedEmployee;
+		
 	}
 
 	@Override
-	public void deleteEmployee(int employeeId) {
-		employeePayrollRepo.deleteById(employeeId);
-		
+	public Employee updateEmployee(int employeeId, UpdateEmployeeDTO employee) {
+		Employee currEmp = getEmployeeById(employeeId);
+		currEmp.updateEmployeeDetails(employee);
+		return this.employeePayrollRepo.save(currEmp);
 	}
 	
 }
